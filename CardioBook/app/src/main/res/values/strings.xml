@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CardioBook</string>
+    <string name="add">Add</string>
+    <string name="comfirm">Comfirm</string>
+    <string name="addMeasurements">ADD</string>
+    <string name="test">test</string>
+</resources>
