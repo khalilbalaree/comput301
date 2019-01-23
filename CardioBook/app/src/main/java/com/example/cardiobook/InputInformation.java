@@ -12,9 +12,6 @@ import com.google.gson.Gson;
 
 public class InputInformation extends AppCompatActivity {
 
-    private EditText dateText;
-    private EditText timeText;
-    private EditText commentText;
     private static final String TAG = "MyActivity";
 
 
@@ -46,15 +43,27 @@ public class InputInformation extends AppCompatActivity {
     }
 
     public Measurements getInfo() {
-        dateText = findViewById(R.id.DateText);
-        timeText = findViewById(R.id.TimeText);
-        commentText = findViewById(R.id.CommentText);
+
+        EditText dateText = findViewById(R.id.DateText);
+        EditText timeText = findViewById(R.id.TimeText);
+        EditText systolicText = findViewById(R.id.SystolicText);
+        EditText diastolicText = findViewById(R.id.DiastolicText);
+        EditText heartRateText = findViewById(R.id.HrText);
+        EditText commentText = findViewById(R.id.CommentText);
+
+
         String sDate = dateText.getText().toString();
         String sTime = timeText.getText().toString();
-        String sComment= commentText.getText().toString();
+        String sComment = commentText.getText().toString();
+        int sSystolic = Integer.parseInt(systolicText.getText().toString());
+        int sDiastolic = Integer.parseInt(diastolicText.getText().toString());
+        int sHeartRate = Integer.parseInt(heartRateText.getText().toString());
 
 
         Measurements measurement = new Measurements(sDate + " " +sTime);
+        measurement.setSystolic(sSystolic);
+        measurement.setDiastolic(sDiastolic);
+        measurement.setHeartRate(sHeartRate);
         measurement.setComments(sComment);
 
         return measurement;

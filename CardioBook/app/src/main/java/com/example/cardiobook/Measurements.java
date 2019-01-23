@@ -13,12 +13,8 @@ public class Measurements {
     private String comments;
 
     public Measurements(String sDate) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        try{
-            this.date = format.parse(sDate);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
+        DateStrFormat format = new DateStrFormat();
+        this.date = format.StrToDate(sDate);
     }
 
     public Date getDate() {
