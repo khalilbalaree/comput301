@@ -1,6 +1,7 @@
 package com.example.cardiobook;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,11 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
         Measurements item = getItem(position);
 
         if (item != null) {
+
+            if (getItem(position).isFlag()) {
+                convertView.setBackgroundColor(Color.parseColor("#FFFFE0")); // Hightlight in light yellow
+            }
+
             DateStrFormat dateStrFormat = new DateStrFormat(getItem(position).getDate());
             String sDate = dateStrFormat.getsDate();
             String sSysbolic = Integer.toString(getItem(position).getSystolic());

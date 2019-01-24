@@ -11,8 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +40,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "file.sav";
     private ListView mainList;
     private Measurements newMeasurement;
     private static ArrayList<Measurements> mList = new ArrayList<>();
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LoadFromFile();
 
         //Set list view adapter
         mainList = findViewById(R.id.MyList);
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Measurements m = (Measurements)mainList.getItemAtPosition(position);
+                Measurements m = (Measurements) mainList.getItemAtPosition(position);
                 Log.d(TAG, "onItemClick: " + m.getDate());
 
                 setDialog(m);
@@ -102,20 +109,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void mListAdd() {
+
+    private void mListAdd() {
 
         Measurements item = getData();
         if (item != null) {
 
             // From edit measurements
-            if (! myMeasurements.is_clear_hold()) {
+            if (!myMeasurements.is_clear_hold()) {
                 mList.remove(myMeasurements.getHold());
                 myMeasurements.clearHold();
             }
 
 
-
             mList = myMeasurements.addM(item);
+            SaveInFile();
+
             adapter.notifyDataSetChanged();
             Log.d(TAG, "onResume: " + mList.size());
         } else {
@@ -125,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected Measurements getData() {
+    private Measurements getData() {
         Intent intent = getIntent();
 
         Gson gson = new Gson();
@@ -141,8 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    protected void setDialog(final Measurements m) {
+    private void setDialog(final Measurements m) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Remove or Edit?");
@@ -167,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mList = myMeasurements.deleteM(m);
+                SaveInFile();
                 adapter.notifyDataSetChanged();
             }
         });
@@ -175,4 +184,48 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+    private void LoadFromFile() {
+        try{
+            FileReader in = new FileReader(new File(getFilesDir(), FILENAME));
+            Gson gson = new Gson();
+
+            myMeasurements = gson.fromJson(in, AllMyMeasurements.class);
+            if (myMeasurements != null) {
+                mList = myMeasurements.getM();
+                Log.d(TAG, "LoadFromFile: " + mList);
+            } else {
+                Log.d(TAG, "LoadFromFile: " + "noFilecanbeload");
+                myMeasurements = new AllMyMeasurements();
+            }
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    private void SaveInFile() {
+        try {
+            FileWriter out = new FileWriter(new File(getFilesDir(), FILENAME));
+            Gson gson = new Gson();
+            gson.toJson(myMeasurements, out);
+            Log.d(TAG, "SaveInFile: " + myMeasurements);
+
+            out.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
 }

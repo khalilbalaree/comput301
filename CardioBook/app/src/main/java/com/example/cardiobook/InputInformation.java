@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.google.gson.Gson;
 
+import java.util.Date;
+
 /**
  *
  * @author ZIJUN WU
@@ -86,15 +88,37 @@ public class InputInformation extends AppCompatActivity {
     }
 
     public Measurements getInfo() {
+        String DateAndTime;
+        int sSystolic;
+        int sDiastolic;
+        int sHeartRate;
 
-        String sDate = dateText.getText().toString();
-        String sTime = timeText.getText().toString();
+        try {
+            String sDate = dateText.getText().toString();
+            String sTime = timeText.getText().toString();
+            DateAndTime = sDate + " " + sTime;
+        } catch (Exception e) {
+            DateAndTime = new DateStrFormat(new Date()).getsDate();
+        }
+        try {
+            sSystolic = Integer.parseInt(systolicText.getText().toString());
+        } catch (Exception e) {
+            sSystolic = 0;
+        }
+        try {
+            sDiastolic = Integer.parseInt(diastolicText.getText().toString());
+        } catch (Exception e) {
+            sDiastolic = 0;
+        }
+        try {
+            sHeartRate = Integer.parseInt(heartRateText.getText().toString());
+        } catch (Exception e) {
+            sHeartRate = 0;
+        }
+
         String sComment = commentText.getText().toString();
-        int sSystolic = Integer.parseInt(systolicText.getText().toString());
-        int sDiastolic = Integer.parseInt(diastolicText.getText().toString());
-        int sHeartRate = Integer.parseInt(heartRateText.getText().toString());
 
-        Measurements measurement = new Measurements(sDate + " " +sTime);
+        Measurements measurement = new Measurements(DateAndTime);
         measurement.setSystolic(sSystolic);
         measurement.setDiastolic(sDiastolic);
         measurement.setHeartRate(sHeartRate);
@@ -117,4 +141,5 @@ public class InputInformation extends AppCompatActivity {
         commentText.setText(m.getComments());
 
     }
+
 }
