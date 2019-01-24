@@ -60,14 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Set list view adapter
         mainList = findViewById(R.id.MyList);
-        adapter = new MeasurementsListAdapter(MainActivity.this, R.layout.list_item, mList);
+        adapter = new MeasurementsListAdapter(MainActivity.this, R.layout.list_item, myMeasurements.getM());
         mainList.setAdapter(adapter);
         mainList.setClickable(true);
 
-        //Connect myMeasurements this mList
-        mList = myMeasurements.getM();
         adapter.notifyDataSetChanged();
-
 
     }
 
@@ -106,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
         mListAdd();
 
-
     }
 
 
@@ -116,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
         if (item != null) {
 
             // From edit measurements
-            if (!myMeasurements.is_clear_hold()) {
-                mList.remove(myMeasurements.getHold());
+            if ( myMeasurements.isHold()) {
+                myMeasurements.updateOldToNew(item);
                 myMeasurements.clearHold();
+            } else {
+                myMeasurements.addM(item);
             }
-
-
-            mList = myMeasurements.addM(item);
+            adapter.notifyDataSetChanged();
             SaveInFile();
 
             adapter.notifyDataSetChanged();
@@ -162,6 +158,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, InputInformation.class);
 
                 myMeasurements.hold(m);
+                SaveInFile();
+
+                Log.d(TAG, "onClick: What's on hold? " + myMeasurements.getHold());
+                Log.d(TAG, "onClick: is_clear_onhold? " + myMeasurements.isHold() );
 
                 Gson gson = new Gson();
                 String out = gson.toJson(m);
@@ -174,7 +174,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("Remove", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mList = myMeasurements.deleteM(m);
+//                mList = myMeasurements.deleteM(m);
+                myMeasurements.deleteM(m);
                 SaveInFile();
                 adapter.notifyDataSetChanged();
             }
@@ -191,12 +192,10 @@ public class MainActivity extends AppCompatActivity {
             Gson gson = new Gson();
 
             myMeasurements = gson.fromJson(in, AllMyMeasurements.class);
-            if (myMeasurements != null) {
-                mList = myMeasurements.getM();
-                Log.d(TAG, "LoadFromFile: " + mList);
-            } else {
-                Log.d(TAG, "LoadFromFile: " + "noFilecanbeload");
+
+            if (myMeasurements == null) {
                 myMeasurements = new AllMyMeasurements();
+
             }
 
         } catch (FileNotFoundException e) {

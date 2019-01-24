@@ -1,5 +1,7 @@
 package com.example.cardiobook;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -13,7 +15,8 @@ import java.util.ArrayList;
 public class AllMyMeasurements {
     private ArrayList<Measurements> myMeasurements = new ArrayList<>();
     private Measurements onHold;
-    private Boolean isClearHold = true;
+    private Boolean isHold = false;
+    private int index;
 
     public ArrayList<Measurements> getM() {
         return myMeasurements;
@@ -31,7 +34,8 @@ public class AllMyMeasurements {
     }
 
     public void hold(Measurements m) {
-        isClearHold = false;
+        index = myMeasurements.indexOf(m);
+        isHold = true;
         onHold = m;
     }
 
@@ -40,11 +44,17 @@ public class AllMyMeasurements {
     }
 
     public void clearHold() {
-        isClearHold = true;
+        isHold = false;
+        index = 0;
     }
 
-    public boolean is_clear_hold() {
-        return isClearHold;
+    public boolean isHold() {
+        return isHold;
+    }
+
+    public void updateOldToNew(Measurements m) {
+        myMeasurements.set(index, m);
+
     }
 
 }
