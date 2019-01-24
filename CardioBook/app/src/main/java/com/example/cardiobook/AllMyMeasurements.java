@@ -2,6 +2,14 @@ package com.example.cardiobook;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author ZIJUN WU
+ * @version 1.1
+ * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ *
+ */
+
 public class AllMyMeasurements {
     private ArrayList<Measurements> myMeasurements = new ArrayList<>();
     private Measurements onHold;

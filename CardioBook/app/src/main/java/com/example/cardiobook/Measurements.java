@@ -2,6 +2,14 @@ package com.example.cardiobook;
 
 import java.util.Date;
 
+/**
+ *
+ * @author ZIJUN WU
+ * @version 1.1
+ * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ *
+ */
+
 public class Measurements {
 
     private Date date;
@@ -9,7 +17,6 @@ public class Measurements {
     private int diastolic;
     private int heartRate;
     private String comments;
-    private boolean flag;
 
     public Measurements(String sDate) {
         DateStrFormat format = new DateStrFormat(sDate);
@@ -53,10 +60,11 @@ public class Measurements {
     }
 
     public boolean isFlag() {
-
-
-
-        return flag;
+        if (systolic < 90 || systolic > 140 || diastolic < 60 || diastolic > 90) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

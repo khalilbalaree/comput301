@@ -15,6 +15,24 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author ZIJUN WU
+ * @version 1.1
+ * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ *
+ * This this the Main activity for CardioBook.
+ * The app should allow the user to:
+ * 1. show a list of measurements
+ * 2. add a new measurement (which always appends to the bottom end of the list)
+ * 3. view and edit the details of an existing measurement
+ * 4. delete a measurement
+ * 5. see unusual blood pressures highlighted or flagged
+ *
+ */
+
+
+
 public class MainActivity extends AppCompatActivity {
 
 //    private static final String FILENAME = "file.sav";

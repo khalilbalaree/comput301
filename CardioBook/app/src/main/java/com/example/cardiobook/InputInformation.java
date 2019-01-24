@@ -9,6 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.google.gson.Gson;
 
+/**
+ *
+ * @author ZIJUN WU
+ * @version 1.1
+ * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ *
+ */
+
 
 public class InputInformation extends AppCompatActivity {
 

@@ -4,6 +4,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *
+ * @author ZIJUN WU
+ * @version 1.1
+ * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ *
+ */
+
 public class DateStrFormat {
 
     private Date date = new Date();
