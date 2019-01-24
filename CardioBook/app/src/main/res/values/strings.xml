@@ -4,4 +4,10 @@
     <string name="comfirm">Comfirm</string>
     <string name="addMeasurements">ADD</string>
     <string name="test">test</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="heart_rate">heart rate</string>
+    <string name="add_some_comments">Add some comments</string>
 </resources>

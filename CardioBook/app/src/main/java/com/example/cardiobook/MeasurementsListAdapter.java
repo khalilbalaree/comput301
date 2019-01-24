@@ -32,18 +32,21 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
         Measurements item = getItem(position);
 
         if (item != null) {
-            DateStrFormat dateStrFormat = new DateStrFormat();
-            String sDate = dateStrFormat.DateToStr(getItem(position).getDate());
+            DateStrFormat dateStrFormat = new DateStrFormat(getItem(position).getDate());
+            String sDate = dateStrFormat.getsDate();
             String sSysbolic = Integer.toString(getItem(position).getSystolic());
             String sDiastolic = Integer.toString(getItem(position).getDiastolic());
+            String sHeartRate = Integer.toString(getItem(position).getHeartRate());
 
             TextView date = (TextView) convertView.findViewById(R.id.textView1);
             TextView sysbolic = (TextView) convertView.findViewById(R.id.textView2);
             TextView diastolic = (TextView) convertView.findViewById(R.id.textView3);
+            TextView heartRate = convertView.findViewById(R.id.textView4);
 
             date.setText(sDate);
-            sysbolic.setText(sSysbolic);
-            diastolic.setText(sDiastolic);
+            sysbolic.setText("Sysbolic: " + sSysbolic);
+            diastolic.setText("Diastolic: " + sDiastolic);
+            heartRate.setText("HeartRate: " + sHeartRate);
         }
 
         return convertView;

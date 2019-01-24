@@ -14,11 +14,26 @@ public class InputInformation extends AppCompatActivity {
 
     private static final String TAG = "MyActivity";
 
+    private EditText dateText;
+    private EditText timeText;
+    private EditText systolicText;
+    private EditText diastolicText;
+    private EditText heartRateText;
+    private EditText commentText;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_information);
+
+        dateText = findViewById(R.id.DateText);
+        timeText = findViewById(R.id.TimeText);
+        systolicText = findViewById(R.id.SystolicText);
+        diastolicText = findViewById(R.id.DiastolicText);
+        heartRateText = findViewById(R.id.HrText);
+        commentText = findViewById(R.id.CommentText);
 
     }
 
@@ -42,15 +57,27 @@ public class InputInformation extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+
+
+        Gson gson = new Gson();
+        String objStr = intent.getStringExtra("oldMeasurement");
+        Log.d(TAG, "onResume: " + objStr);
+        if (objStr != null) {
+
+            Measurements oldMeasurement = gson.fromJson(objStr, Measurements.class);
+            setInfo(oldMeasurement);
+
+        }
+
+
+    }
+
     public Measurements getInfo() {
-
-        EditText dateText = findViewById(R.id.DateText);
-        EditText timeText = findViewById(R.id.TimeText);
-        EditText systolicText = findViewById(R.id.SystolicText);
-        EditText diastolicText = findViewById(R.id.DiastolicText);
-        EditText heartRateText = findViewById(R.id.HrText);
-        EditText commentText = findViewById(R.id.CommentText);
-
 
         String sDate = dateText.getText().toString();
         String sTime = timeText.getText().toString();
@@ -59,7 +86,6 @@ public class InputInformation extends AppCompatActivity {
         int sDiastolic = Integer.parseInt(diastolicText.getText().toString());
         int sHeartRate = Integer.parseInt(heartRateText.getText().toString());
 
-
         Measurements measurement = new Measurements(sDate + " " +sTime);
         measurement.setSystolic(sSystolic);
         measurement.setDiastolic(sDiastolic);
@@ -67,5 +93,20 @@ public class InputInformation extends AppCompatActivity {
         measurement.setComments(sComment);
 
         return measurement;
+
+
+    }
+
+    public void setInfo(Measurements m) {
+
+        DateStrFormat formatter = new DateStrFormat(m.getDate());
+
+        dateText.setText(formatter.justSdate());
+        timeText.setText(formatter.justStime());
+        systolicText.setText(Integer.toString(m.getSystolic()));
+        diastolicText.setText(Integer.toString(m.getDiastolic()));
+        heartRateText.setText(Integer.toString(m.getHeartRate()));
+        commentText.setText(m.getComments());
+
     }
 }

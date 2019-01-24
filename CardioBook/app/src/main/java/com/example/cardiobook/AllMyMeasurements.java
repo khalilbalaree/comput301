@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class AllMyMeasurements {
     private ArrayList<Measurements> myMeasurements = new ArrayList<>();
+    private Measurements onHold;
+    private Boolean isClearHold = true;
 
     public ArrayList<Measurements> getM() {
         return myMeasurements;
@@ -20,5 +22,21 @@ public class AllMyMeasurements {
         return myMeasurements;
     }
 
+    public void hold(Measurements m) {
+        isClearHold = false;
+        onHold = m;
+    }
+
+    public Measurements getHold() {
+        return onHold;
+    }
+
+    public void clearHold() {
+        isClearHold = true;
+    }
+
+    public boolean is_clear_hold() {
+        return isClearHold;
+    }
 
 }

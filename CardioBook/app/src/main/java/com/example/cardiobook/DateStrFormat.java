@@ -7,14 +7,16 @@ import java.util.Date;
 public class DateStrFormat {
 
     private Date date = new Date();
+    private String sDate;
     private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    public String DateToStr(Date date) {
-        return this.format.format(date);
-
+    public DateStrFormat(Date date) {
+        this.date = date;
+        this.sDate = this.format.format(date);
     }
 
-    public Date StrToDate(String sDate) {
+    public DateStrFormat(String sDate) {
+        this.sDate = sDate;
 
         try{
             this.date = this.format.parse(sDate);
@@ -23,7 +25,24 @@ public class DateStrFormat {
             e.printStackTrace();
         }
 
-        return this.date;
+    }
 
+    public String getsDate() {
+        return this.sDate;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public String justSdate() {
+        String[] parts = this.sDate.split(" ");
+        return parts[0];
+
+    }
+
+    public String justStime() {
+        String[] parts = this.sDate.split(" ");
+        return parts[1];
     }
 }

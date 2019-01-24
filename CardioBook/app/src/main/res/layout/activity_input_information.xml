@@ -16,7 +16,7 @@
         android:layout_marginEnd="99dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="Date"
+        android:hint="@string/date"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,11 +31,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="99dp"
         android:ems="10"
-        android:hint="Time"
+        android:hint="@string/time"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateText" />
+        app:layout_constraintTop_toBottomOf="@+id/DateText"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/SystolicText"
@@ -45,11 +46,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="99dp"
         android:ems="10"
-        android:hint="Systolic"
+        android:hint="@string/systolic"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TimeText" />
+        app:layout_constraintTop_toBottomOf="@+id/TimeText"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/DiastolicText"
@@ -59,11 +61,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="99dp"
         android:ems="10"
-        android:hint="Diastolic"
+        android:hint="@string/diastolic"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SystolicText" />
+        app:layout_constraintTop_toBottomOf="@+id/SystolicText"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/HrText"
@@ -72,13 +75,14 @@
         android:layout_marginStart="99dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="99dp"
-        android:contentDescription="heart rate"
+        android:contentDescription="@string/heart_rate"
         android:ems="10"
         android:hint="Heart Rate"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DiastolicText" />
+        app:layout_constraintTop_toBottomOf="@+id/DiastolicText"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/ComfirmButton"
@@ -98,10 +102,11 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="99dp"
         android:ems="10"
-        android:hint="Add some comments"
+        android:hint="@string/add_some_comments"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HrText" />
+        app:layout_constraintTop_toBottomOf="@+id/HrText"
+        android:autofillHints="" />
 
 </android.support.constraint.ConstraintLayout>

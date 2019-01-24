@@ -1,7 +1,5 @@
 package com.example.cardiobook;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Measurements {
@@ -11,10 +9,11 @@ public class Measurements {
     private int diastolic;
     private int heartRate;
     private String comments;
+    private boolean flag;
 
     public Measurements(String sDate) {
-        DateStrFormat format = new DateStrFormat();
-        this.date = format.StrToDate(sDate);
+        DateStrFormat format = new DateStrFormat(sDate);
+        this.date = format.getDate();
     }
 
     public Date getDate() {
@@ -52,4 +51,12 @@ public class Measurements {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
+    public boolean isFlag() {
+
+
+
+        return flag;
+    }
+
 }
