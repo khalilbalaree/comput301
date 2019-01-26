@@ -160,9 +160,6 @@ public class MainActivity extends AppCompatActivity {
                 myMeasurements.hold(m);
                 SaveInFile();
 
-                Log.d(TAG, "onClick: What's on hold? " + myMeasurements.getHold());
-                Log.d(TAG, "onClick: is_clear_onhold? " + myMeasurements.isHold() );
-
                 Gson gson = new Gson();
                 String out = gson.toJson(m);
                 intent.putExtra("oldMeasurement", out);

@@ -16,6 +16,7 @@ import java.util.Date;
  * @author ZIJUN WU
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ * Second activity for user to input the information.
  *
  */
 

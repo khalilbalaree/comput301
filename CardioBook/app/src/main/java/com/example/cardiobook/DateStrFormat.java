@@ -9,8 +9,11 @@ import java.util.Date;
  * @author ZIJUN WU
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
+ * This is the class for tranferring the date to designated string form
+ * or transfer the date string to date object.
  *
  */
+
 
 public class DateStrFormat {
 

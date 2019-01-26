@@ -45,6 +45,9 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
                 convertView.setBackgroundColor(Color.parseColor("#FFFFE0")); // Hightlight in light yellow
             }
 
+            TextView textView = (TextView) convertView.findViewById(R.id.textView1);
+            textView.setTextColor(Color.BLACK);
+
             DateStrFormat dateStrFormat = new DateStrFormat(getItem(position).getDate());
             String sDate = dateStrFormat.getsDate();
             String sSysbolic = Integer.toString(getItem(position).getSystolic());
