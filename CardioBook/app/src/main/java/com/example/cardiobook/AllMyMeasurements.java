@@ -5,11 +5,9 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- *
  * @author ZIJUN WU
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
- *
  */
 
 public class AllMyMeasurements {

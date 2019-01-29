@@ -7,17 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.google.gson.Gson;
 
 import java.util.Date;
 
 /**
- *
  * @author ZIJUN WU
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
  * Second activity for user to input the information.
- *
  */
 
 
@@ -31,7 +30,6 @@ public class InputInformationActivity extends AppCompatActivity {
     private EditText diastolicText;
     private EditText heartRateText;
     private EditText commentText;
-
 
 
     @Override
@@ -89,6 +87,7 @@ public class InputInformationActivity extends AppCompatActivity {
 
     /**
      * To get the information from the textviews
+     *
      * @return Measurement obj
      */
     public Measurements getInfo() {
@@ -137,6 +136,7 @@ public class InputInformationActivity extends AppCompatActivity {
     /**
      * only used when edit the information
      * show the measurement m in textviews
+     *
      * @param m
      */
     public void setInfo(Measurements m) {

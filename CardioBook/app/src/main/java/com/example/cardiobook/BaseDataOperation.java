@@ -1,7 +1,9 @@
 package com.example.cardiobook;
 
 import android.content.Context;
+
 import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,7 +14,6 @@ import java.io.IOException;
  * @author zijunwu
  * This class is for process the data in this app
  * BaseDataOperation mainly focus on file data process
- *
  */
 
 public class BaseDataOperation {
@@ -27,7 +28,7 @@ public class BaseDataOperation {
 
     public void LoadFromFile() {
         try {
-            FileReader in = new FileReader(new File(context.getFilesDir(),FILENAME));
+            FileReader in = new FileReader(new File(context.getFilesDir(), FILENAME));
             Gson gson = new Gson();
             myMeasurements = gson.fromJson(in, AllMyMeasurements.class);
 
@@ -47,7 +48,7 @@ public class BaseDataOperation {
 
     public void SaveInFile() {
         try {
-            FileWriter out = new FileWriter(new File(context.getFilesDir(),FILENAME));
+            FileWriter out = new FileWriter(new File(context.getFilesDir(), FILENAME));
             Gson gson = new Gson();
             gson.toJson(myMeasurements, out);
 

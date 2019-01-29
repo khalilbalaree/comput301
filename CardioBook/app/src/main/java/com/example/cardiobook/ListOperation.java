@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import com.google.gson.Gson;
 
 /**
- *
  * @author zijunwu
  * This is a subclass of BaseDataOperation
  * Mainly focus on processing the data in listview
- *
  */
 
 public class ListOperation extends BaseDataOperation {
@@ -38,7 +37,7 @@ public class ListOperation extends BaseDataOperation {
         if (item != null) {
 
             // From edit measurements
-            if ( myMeasurements.isHold()) {
+            if (myMeasurements.isHold()) {
                 myMeasurements.updateOldToNew(item);
                 myMeasurements.clearHold();
             } else {

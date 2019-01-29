@@ -3,11 +3,9 @@ package com.example.cardiobook;
 import java.util.Date;
 
 /**
- *
  * @author ZIJUN WU
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
- *
  */
 
 public class Measurements {
@@ -61,6 +59,22 @@ public class Measurements {
 
     public boolean isFlag() {
         if (systolic < 90 || systolic > 140 || diastolic < 60 || diastolic > 90) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean SystolicIsFlag() {
+        if (systolic < 90 || systolic > 140) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean DiastolicIsFlag() {
+        if (diastolic < 60 || diastolic > 90) {
             return true;
         } else {
             return false;

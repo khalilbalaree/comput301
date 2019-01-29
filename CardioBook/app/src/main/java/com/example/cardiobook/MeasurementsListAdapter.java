@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 /**
- *
  * @author ZIJUN WU
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
- *
  */
 
 public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
@@ -30,7 +29,7 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
 
 
     @Override
-    public View getView(int position,  View convertView,  ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 //        return super.getView(position, convertView, parent);
 
 
@@ -41,8 +40,24 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
 
         if (item != null) {
 
-            if (getItem(position).isFlag()) {
+            TextView textView1 = (TextView) convertView.findViewById(R.id.textView1);
+            textView1.setTextColor(Color.BLACK);
+
+            if (item.isFlag()) {
                 convertView.setBackgroundColor(Color.parseColor("#FFFFE0")); // Hightlight in light yellow
+            }
+
+
+            if (item.SystolicIsFlag()) {
+                TextView textView2 = (TextView) convertView.findViewById(R.id.textView2);
+                textView2.setTextColor(Color.RED);
+
+            }
+
+            if (item.DiastolicIsFlag()) {
+                TextView textView3 = (TextView) convertView.findViewById(R.id.textView3);
+                textView3.setTextColor(Color.RED);
+
             }
 
             TextView textView = (TextView) convertView.findViewById(R.id.textView1);
