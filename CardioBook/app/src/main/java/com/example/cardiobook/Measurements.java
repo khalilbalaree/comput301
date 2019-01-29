@@ -18,7 +18,6 @@ public class Measurements {
     private int heartRate;
     private String comments;
 
-
     public Measurements(String sDate) {
         DateStrFormat format = new DateStrFormat(sDate);
         this.date = format.getDate();

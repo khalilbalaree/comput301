@@ -21,7 +21,7 @@ import java.util.Date;
  */
 
 
-public class InputInformation extends AppCompatActivity {
+public class InputInformationActivity extends AppCompatActivity {
 
     private static final String TAG = "MyActivity";
 
@@ -57,7 +57,7 @@ public class InputInformation extends AppCompatActivity {
         comfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InputInformation.this, MainActivity.class);
+                Intent intent = new Intent(InputInformationActivity.this, MainActivity.class);
 
                 Gson gson = new Gson();
                 String out = gson.toJson(getInfo());
@@ -74,7 +74,6 @@ public class InputInformation extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-
         Gson gson = new Gson();
         String objStr = intent.getStringExtra("oldMeasurement");
         Log.d(TAG, "onResume: " + objStr);
@@ -88,6 +87,10 @@ public class InputInformation extends AppCompatActivity {
 
     }
 
+    /**
+     * To get the information from the textviews
+     * @return Measurement obj
+     */
     public Measurements getInfo() {
         String DateAndTime;
         int sSystolic;
@@ -98,6 +101,7 @@ public class InputInformation extends AppCompatActivity {
             String sDate = dateText.getText().toString();
             String sTime = timeText.getText().toString();
             DateAndTime = sDate + " " + sTime;
+//            Log.d(TAG, "getInfo: " + DateAndTime);
         } catch (Exception e) {
             DateAndTime = new DateStrFormat(new Date()).getsDate();
         }
@@ -130,6 +134,11 @@ public class InputInformation extends AppCompatActivity {
 
     }
 
+    /**
+     * only used when edit the information
+     * show the measurement m in textviews
+     * @param m
+     */
     public void setInfo(Measurements m) {
 
         DateStrFormat formatter = new DateStrFormat(m.getDate());

@@ -8,22 +8,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
  * @author ZIJUN WU
- * @version 1.1
+ * @version 1.2
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
  *
  * This this the Main activity for CardioBook.
@@ -40,15 +33,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String FILENAME = "file.sav";
-    private ListView mainList;
-    private Measurements newMeasurement;
-    private static ArrayList<Measurements> mList = new ArrayList<>();
-    private ArrayAdapter<Measurements> adapter;
-    private static AllMyMeasurements myMeasurements = new AllMyMeasurements();
-
-
     private static final String TAG = "MyActivity";
+    private ListOperation listOperation;
 
 
     @Override
@@ -56,37 +42,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LoadFromFile();
+        ListView mainList = findViewById(R.id.MyList);
 
-        //Set list view adapter
-        mainList = findViewById(R.id.MyList);
-        adapter = new MeasurementsListAdapter(MainActivity.this, R.layout.list_item, myMeasurements.getM());
-        mainList.setAdapter(adapter);
-        mainList.setClickable(true);
+        listOperation = new ListOperation(MainActivity.this);
+        listOperation.initList(mainList);
 
-        adapter.notifyDataSetChanged();
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Button addButton = (Button) findViewById(R.id.AddButton);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, InputInformation.class);
-                startActivity(intent);
-            }
-        });
-
+        final ListView finalMainList = mainList;
         mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Measurements m = (Measurements) mainList.getItemAtPosition(position);
+                Measurements m = (Measurements) finalMainList.getItemAtPosition(position);
                 Log.d(TAG, "onItemClick: " + m.getDate());
 
                 setDialog(m);
@@ -94,54 +59,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button addButton = (Button) findViewById(R.id.AddButton);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, InputInformationActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: " + "BackToActivity");
+        Log.d(TAG, "onResume: ");
 
-        mListAdd();
-
-    }
-
-
-    private void mListAdd() {
-
-        Measurements item = getData();
-        if (item != null) {
-
-            // From edit measurements
-            if ( myMeasurements.isHold()) {
-                myMeasurements.updateOldToNew(item);
-                myMeasurements.clearHold();
-            } else {
-                myMeasurements.addM(item);
-            }
-            adapter.notifyDataSetChanged();
-            SaveInFile();
-
-            adapter.notifyDataSetChanged();
-            Log.d(TAG, "onResume: " + mList.size());
-        } else {
-            myMeasurements.clearHold();
-        }
-
-
-    }
-
-    private Measurements getData() {
-        Intent intent = getIntent();
-
-        Gson gson = new Gson();
-        String objStr = intent.getStringExtra("newMeasurement");
-        newMeasurement = gson.fromJson(objStr, Measurements.class);
-
-//        when user go back
-        intent.removeExtra("newMeasurement");
-        Log.d(TAG, "getData: " + objStr);
-
-        return newMeasurement;
+        listOperation.mListAdd(getIntent());
 
     }
 
@@ -155,10 +91,9 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(MainActivity.this, InputInformation.class);
+                Intent intent = new Intent(MainActivity.this, InputInformationActivity.class);
 
-                myMeasurements.hold(m);
-                SaveInFile();
+                listOperation.hold(m);
 
                 Gson gson = new Gson();
                 String out = gson.toJson(m);
@@ -171,56 +106,14 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("Remove", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                mList = myMeasurements.deleteM(m);
-                myMeasurements.deleteM(m);
-                SaveInFile();
-                adapter.notifyDataSetChanged();
+
+                listOperation.delete(m);
+
             }
         });
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
-    }
-
-    private void LoadFromFile() {
-        try{
-            FileReader in = new FileReader(new File(getFilesDir(), FILENAME));
-            Gson gson = new Gson();
-
-            myMeasurements = gson.fromJson(in, AllMyMeasurements.class);
-
-            if (myMeasurements == null) {
-                myMeasurements = new AllMyMeasurements();
-
-            }
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    private void SaveInFile() {
-        try {
-            FileWriter out = new FileWriter(new File(getFilesDir(), FILENAME));
-            Gson gson = new Gson();
-            gson.toJson(myMeasurements, out);
-            Log.d(TAG, "SaveInFile: " + myMeasurements);
-
-            out.close();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
     }
 
