@@ -1,5 +1,7 @@
 package com.example.cardiobook;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ public class InputInformationActivity extends AppCompatActivity {
     private EditText diastolicText;
     private EditText heartRateText;
     private EditText commentText;
+    private Boolean dateCorrect;
 
 
     @Override
@@ -59,8 +62,13 @@ public class InputInformationActivity extends AppCompatActivity {
 
                 Gson gson = new Gson();
                 String out = gson.toJson(getInfo());
-                intent.putExtra("newMeasurement", out);
-                startActivity(intent);
+                if (dateCorrect) {
+                    intent.putExtra("newMeasurement", out);
+                    startActivity(intent);
+                } else {
+                    setDialog();
+                }
+
             }
         });
 
@@ -86,8 +94,7 @@ public class InputInformationActivity extends AppCompatActivity {
     }
 
     /**
-     * To get the information from the textviews
-     *
+     * To get the information from the TextView
      * @return Measurement obj
      */
     public Measurements getInfo() {
@@ -96,14 +103,20 @@ public class InputInformationActivity extends AppCompatActivity {
         int sDiastolic;
         int sHeartRate;
 
-        try {
-            String sDate = dateText.getText().toString();
-            String sTime = timeText.getText().toString();
-            DateAndTime = sDate + " " + sTime;
-//            Log.d(TAG, "getInfo: " + DateAndTime);
-        } catch (Exception e) {
+
+        String sDate = dateText.getText().toString();
+        String sTime = timeText.getText().toString();
+        DateAndTime = sDate + " " + sTime;
+
+        DateStrFormat tempt = new DateStrFormat(DateAndTime);
+        if (! tempt.isCorrectFormat()) {
+            dateCorrect = false;
             DateAndTime = new DateStrFormat(new Date()).getsDate();
+        } else {
+            dateCorrect = true;
         }
+
+
         try {
             sSystolic = Integer.parseInt(systolicText.getText().toString());
         } catch (Exception e) {
@@ -135,8 +148,7 @@ public class InputInformationActivity extends AppCompatActivity {
 
     /**
      * only used when edit the information
-     * show the measurement m in textviews
-     *
+     * show the measurement m in TextView
      * @param m
      */
     public void setInfo(Measurements m) {
@@ -150,6 +162,22 @@ public class InputInformationActivity extends AppCompatActivity {
         heartRateText.setText(Integer.toString(m.getHeartRate()));
         commentText.setText(m.getComments());
 
+    }
+
+    private void setDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Incorrect Date or Time type. Should be YYYY-MM-DD and hh:mm.");
+        builder.setCancelable(true);
+
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }

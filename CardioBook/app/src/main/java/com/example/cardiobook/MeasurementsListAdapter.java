@@ -21,17 +21,27 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
     private Context mContext;
     private int mResource;
 
+    /**
+     * Default constructor
+     * @param context
+     * @param resource
+     * @param objects
+     */
     public MeasurementsListAdapter(Context context, int resource, ArrayList<Measurements> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource = resource;
     }
 
-
+    /**
+     * set the item on ListView
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        return super.getView(position, convertView, parent);
-
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -44,7 +54,8 @@ public class MeasurementsListAdapter extends ArrayAdapter<Measurements> {
             textView1.setTextColor(Color.BLACK);
 
             if (item.isFlag()) {
-                convertView.setBackgroundColor(Color.parseColor("#FFFFE0")); // Hightlight in light yellow
+                // Hightlight the unusual measurement in light yellow
+                convertView.setBackgroundColor(Color.parseColor("#FFFFE0"));
             }
 
 

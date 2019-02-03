@@ -16,6 +16,11 @@ public class Measurements {
     private int heartRate;
     private String comments;
 
+    /**
+     * Constructor
+     * set the date using sDate:string
+     * @param sDate
+     */
     public Measurements(String sDate) {
         DateStrFormat format = new DateStrFormat(sDate);
         this.date = format.getDate();
@@ -57,6 +62,11 @@ public class Measurements {
         this.comments = comments;
     }
 
+    /**
+     * Unusual Measurement
+     * @return Boolean
+     */
+
     public boolean isFlag() {
         if (systolic < 90 || systolic > 140 || diastolic < 60 || diastolic > 90) {
             return true;
@@ -65,6 +75,10 @@ public class Measurements {
         }
     }
 
+    /**
+     * Unusual Systolic
+     * @return Boolean
+     */
     public boolean SystolicIsFlag() {
         if (systolic < 90 || systolic > 140) {
             return true;
@@ -73,6 +87,10 @@ public class Measurements {
         }
     }
 
+    /**
+     * Usual Diastolic
+     * @return Boolean
+     */
     public boolean DiastolicIsFlag() {
         if (diastolic < 60 || diastolic > 90) {
             return true;

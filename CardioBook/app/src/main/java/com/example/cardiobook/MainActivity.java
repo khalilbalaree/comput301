@@ -18,7 +18,7 @@ import com.google.gson.Gson;
  * @author ZIJUN WU
  * @version 1.2
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
- * <p>
+ *
  * This this the Main activity for CardioBook.
  * The app should allow the user to:
  * 1. show a list of measurements
@@ -26,6 +26,7 @@ import com.google.gson.Gson;
  * 3. view and edit the details of an existing measurement
  * 4. delete a measurement
  * 5. see unusual blood pressures highlighted or flagged
+ *
  */
 
 
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private ListOperation listOperation;
 
 
+    /**
+     * Initialize a ListView and a Add button in the MainActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * When user click the comfirm button in InputInformationActivity
+     * send some data back to the MainActivity
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -79,14 +87,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * @param m
+     * set dialog when user click on the list item
+     * user can remove or edit the item from this entry
+     *
+     */
     private void setDialog(final Measurements m) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Remove or Edit?");
+        builder.setMessage("What you want to do?");
         builder.setCancelable(true);
 
-        builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("View/Edit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(MainActivity.this, InputInformationActivity.class);
@@ -107,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
 
                 listOperation.delete(m);
 
+            }
+        });
+
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
 

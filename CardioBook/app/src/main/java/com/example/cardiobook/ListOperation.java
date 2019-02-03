@@ -15,14 +15,24 @@ import com.google.gson.Gson;
 
 public class ListOperation extends BaseDataOperation {
 
+    private AllMyMeasurements myMeasurements;
     private ArrayAdapter<Measurements> adapter;
 
+    /**
+     * Constructor: Set the context for parent
+     * @param context
+     */
     public ListOperation(Context context) {
         super(context);
     }
 
+    /**
+     * Initialize the adapter
+     * put the saved data to ListView
+     * @param mainList
+     */
     public void initList(ListView mainList) {
-        LoadFromFile();
+        myMeasurements = LoadFromFile();
         adapter = new MeasurementsListAdapter(context, R.layout.list_item, myMeasurements.getM());
         mainList.setAdapter(adapter);
         mainList.setClickable(true);
@@ -30,7 +40,10 @@ public class ListOperation extends BaseDataOperation {
 
     }
 
-
+    /**
+     * update myMeasurements
+     * @param intent
+     */
     public void mListAdd(Intent intent) {
 
         Measurements item = getData(intent);
@@ -44,7 +57,7 @@ public class ListOperation extends BaseDataOperation {
                 myMeasurements.addM(item);
             }
             adapter.notifyDataSetChanged();
-            SaveInFile();
+            SaveInFile(myMeasurements);
 
             adapter.notifyDataSetChanged();
 
@@ -55,6 +68,11 @@ public class ListOperation extends BaseDataOperation {
 
     }
 
+    /**
+     * get the data from InputInformationActivity
+     * @param intent
+     * @return newMeasurement
+     */
     public Measurements getData(Intent intent) {
 
         Gson gson = new Gson();
@@ -68,14 +86,22 @@ public class ListOperation extends BaseDataOperation {
 
     }
 
+    /**
+     * set onhold measurements in myMeasurements
+     * @param m
+     */
     public void hold(Measurements m) {
         myMeasurements.hold(m);
-        SaveInFile();
+        SaveInFile(myMeasurements);
     }
 
+    /**
+     * delete measurement from myMeasurements
+     * @param m
+     */
     public void delete(Measurements m) {
         myMeasurements.deleteM(m);
-        SaveInFile();
+        SaveInFile(myMeasurements);
         adapter.notifyDataSetChanged();
     }
 }

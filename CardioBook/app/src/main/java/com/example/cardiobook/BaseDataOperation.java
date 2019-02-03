@@ -18,15 +18,24 @@ import java.io.IOException;
 
 public class BaseDataOperation {
 
-    private static final String FILENAME = "file.sav";
     protected Context context;
-    protected static AllMyMeasurements myMeasurements = new AllMyMeasurements();
+    private static final String FILENAME = "file.sav";
+    private AllMyMeasurements myMeasurements;
 
+    /**
+     * Constructor: get the context from MainActivity
+     * @param context
+     */
     public BaseDataOperation(Context context) {
         this.context = context;
     }
 
-    public void LoadFromFile() {
+    /**
+     * Load data from file
+     * @return myMeasurements:AllMyMeasurements
+     */
+
+    public AllMyMeasurements LoadFromFile() {
         try {
             FileReader in = new FileReader(new File(context.getFilesDir(), FILENAME));
             Gson gson = new Gson();
@@ -38,15 +47,19 @@ public class BaseDataOperation {
 
             in.close();
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            myMeasurements = new AllMyMeasurements();
         }
 
+        return myMeasurements;
     }
 
-    public void SaveInFile() {
+    /**
+     * Save data in file
+     * @param myMeasurements
+     */
+    public void SaveInFile(AllMyMeasurements myMeasurements) {
         try {
             FileWriter out = new FileWriter(new File(context.getFilesDir(), FILENAME));
             Gson gson = new Gson();

@@ -16,7 +16,7 @@
         android:layout_marginEnd="99dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/date"
+        android:hint="Date (YYYY-MM-DD)"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,13 +30,13 @@
         android:layout_marginStart="99dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="99dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="@string/time"
+        android:hint="Time (hh:mm)"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateText"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/DateText" />
 
     <EditText
         android:id="@+id/SystolicText"
@@ -104,6 +104,7 @@
         android:ems="10"
         android:hint="@string/add_some_comments"
         android:inputType="textMultiLine"
+        android:maxLength="20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HrText"
