@@ -19,6 +19,12 @@ import java.util.Date;
  * @version 1.1
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
  * Second activity for user to input the information.
+ *
+ * reference :
+ * 1. https://github.com/Vikuku/lonelyTwitter/tree/t19lab2/app/src/main/java/ca/ualberta/cs/lonelytwitter
+ * 2. https://stackoverflow.com/questions/5265913/how-to-use-putextra-and-getextra-for-string-data
+ * 3. https://developer.android.com/guide/topics/ui/dialogs
+ *
  */
 
 

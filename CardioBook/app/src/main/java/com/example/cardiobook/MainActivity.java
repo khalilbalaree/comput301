@@ -27,6 +27,10 @@ import com.google.gson.Gson;
  * 4. delete a measurement
  * 5. see unusual blood pressures highlighted or flagged
  *
+ * reference:
+ * 1. https://developer.android.com/reference/android/app/Activity
+ * 2. https://developer.android.com/guide/topics/ui/dialogs
+ * 3. https://stackoverflow.com/questions/7145183/how-to-cancel-an-alertdialog
  */
 
 

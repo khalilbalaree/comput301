@@ -10,6 +10,8 @@ import java.util.Date;
  * Copyright 2019, ZIJUN WU, https://github.com/khalilbalaree
  * This is the class for tranferring the date to designated string form
  * or transfer the date string to date object.
+ *
+ * reference: https://stackoverflow.com/questions/9277747/android-simpledateformat-how-to-use-it
  */
 
 

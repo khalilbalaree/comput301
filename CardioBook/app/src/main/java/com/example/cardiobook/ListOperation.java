@@ -11,6 +11,8 @@ import com.google.gson.Gson;
  * @author zijunwu
  * This is a subclass of BaseDataOperation
  * Mainly focus on processing the data in listview
+ *
+ * reference: https://github.com/Vikuku/lonelyTwitter/tree/t19lab2/app/src/main/java/ca/ualberta/cs/lonelytwitter
  */
 
 public class ListOperation extends BaseDataOperation {

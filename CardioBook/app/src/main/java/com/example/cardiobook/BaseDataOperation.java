@@ -14,6 +14,10 @@ import java.io.IOException;
  * @author zijunwu
  * This class is for process the data in this app
  * BaseDataOperation mainly focus on file data process
+ *
+ * reference:
+ * 1. https://github.com/Vikuku/lonelyTwitter/tree/t19lab2/app/src/main/java/ca/ualberta/cs/lonelytwitter
+ * 2. https://developer.android.com/reference/android/content/Context
  */
 
 public class BaseDataOperation {
